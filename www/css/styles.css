@@ -1,0 +1,80 @@
+body, html {
+    margin: 0;
+    font-family: 'Lato', sans-serif;
+}
+
+.blur {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+
+    background-image: url('../imgs/background.jpg');
+    background-position: center;
+    background-size: cover;
+    filter: blur(10px);
+    z-index: 1;
+    transform: scale(1.1);
+}
+
+.overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+
+    color: white;
+    background: rgba(0, 0, 0, 0.4);
+    z-index: 2;
+}
+
+.container {
+    position: relative;
+    width: 80%;
+    height: auto;
+    overflow: auto;
+    margin: 4rem auto;
+}
+
+.now {
+    position: relative;
+    float: left;
+    width: 100%;
+}
+
+.now h5 {
+    padding: 0 20px;
+    font-weight: 200;
+    font-size: 12px;
+    margin: 10px 0;
+}
+
+.now_box {
+    position: relative;
+    float: left;
+    width: calc((100% - 120px) / 3);
+    height: auto;
+    margin: 0 20px;
+    padding: 20px 0;
+    text-align: center;
+    background: rgba(0, 0, 0, 0.2);
+}
+
+.now_box svg {
+    height: 100px;
+    width: 60px;
+    margin-right: 20px;
+    display: inline-block;
+    vertical-align: middle;
+    line-height: normal;
+}
+
+.now_box span {
+    font-size: 20px;
+    display: inline-block;
+    vertical-align: middle;
+    line-height: normal;
+    font-weight: 200;
+}
