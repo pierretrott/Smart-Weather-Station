@@ -1,50 +1,11 @@
-/*
-To require a module in Node.js:
-const config = require('/path/to/file');
-*/
-
-/*      EXPRESS.JS
-Express est une infrastructure d'applications Web Node.js
-minimaliste et flexible qui fournit un ensemble de fonctionnalités
-robuste pour les applications Web et mobiles.
-
-Pour créer une application Express
-var express = require("express");
-var app = express();
-*/
 const express = require('express')
 const app = express();
 
-/*      FILE SYSTEM
-https://nodejs.org/api/fs.html
-Allows you to work with the file system on your computer
-*/
 var fs = require('fs')
-
-/*      HTTP
-https://nodejs.org/api/http.html
-Allows Node.js to transfer data over the Hyper Text Transfer Protocol
-*/
 var http = require('http');
-
-/*      Path
-https://nodejs.org/api/path.html
-Provides a way of working with directories and file paths
-*/
 var path    = require("path");
-
-/*      BodyParser
-https://www.npmjs.com/package/body-parser
-*/
 var bodyParser = require('body-parser');
 
-/*      Create an HTTP server
-The HTTP module can create an HTTP server that listens
-to server ports and gives a response back to the client.
-Create a server object
-- req: request from the client
-- res: response from the server
-*/
 var server = http.createServer(function(req, res) {
     fs.readFile('/', 'utf-8', function(error, content) {
         res.writeHead(200, {"Content-Type": "text/html"});
@@ -52,36 +13,25 @@ var server = http.createServer(function(req, res) {
       });
   });
 
-var lastData = null; //null absence of any value
+var lastData = null;
 var allData = null;
 
-/*      Socket.io
-https://www.npmjs.com/package/socket.io
-https://openclassrooms.com/fr/courses/1056721-des-applications-ultra-rapides-avec-node-js/1057825-socket-io-passez-au-temps-reel
-Enables real-time bidirectional event-based communication.
-Example: chat
-*/
-// Chargement de socket.io
 var io = require('socket.io').listen(server);
 
-//https://github.com/expressjs/body-parser/blob/master/README.md
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 
-/*
-io.sockets.on(eventName, function(msg){
-
-});
-*/
+//SENDING UPDATEDATA TO THE CLIENT
 io.sockets.on('connection', function (socket) {
-    socket.emit('updateData', lastData); // sending to the client
+    socket.emit('updateData', lastData);
 });
 
+//SENDING HTML PAGE TO THE CLIENT
 app.get('/', function (req, res) {
-  // __dirname : directory name of the current module = path.dirname()
   res.sendFile(path.join(__dirname + '/www/index.html'));
 });
 
+//SENDING ALLDATA TO THE CLIENT
 app.get('/last', function (req, res) {
     res.send(allData);
 });
