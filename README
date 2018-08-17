@@ -1,2 +1,2 @@
-Smart weather station using a BMP280 connected to a ESP32 (Wemos Lolin D32) which is sending 
+Smart weather station using a BMP280 connected to a ESP32 (Wemos Lolin D32) which is sending
 data to a Raspberry Pi running a Node.js server.
