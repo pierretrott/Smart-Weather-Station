@@ -78,3 +78,10 @@ body, html {
     line-height: normal;
     font-weight: 200;
 }
+
+.chart {
+  position: relative;
+  margin: auto;
+  height: 40vh;
+  width: 80vw;
+}

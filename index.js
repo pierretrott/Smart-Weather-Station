@@ -117,11 +117,6 @@ app.post('/send', function (req, res) {
           hourDict[hour] = todayArray[key].temperature;
         }
 
-        //Sending hour per hour data to client for visualisation
-        io.sockets.emit('hourPerHour', hourDict);
-        res.send('Hour per hour sent')
-        console.log("Hour per hour sent");
-
         //Writing old data to archive.json
         fs.writeFile("archive.json", JSON.stringify(jsonArchive), function (err) {
             if (err) {
@@ -136,7 +131,16 @@ app.post('/send', function (req, res) {
                 res.send('Error')
                 return console.log(err);
             }
-          });
+        });
+
+        //Sending data to client
+        io.sockets.emit('hourPerHour', hourDict);
+        //res.send('Hour per hour sent')
+        console.log("Hour per hour sent");
+
+        io.sockets.emit('jsonArchive', jsonArchive);
+        //res.send('All data sent: hour per hour and archive')
+        console.log("Archive sent");
     });
   });
 
@@ -193,8 +197,13 @@ function returnData() {
             console.log(err);
             return false;
         }
-        allData = JSON.parse(data);
-        lastData = allData[0];
+        try {
+          allData = JSON.parse(data);
+          lastData = allData[0];
+        } catch (error){
+          jsonData = [];
+        }
+
     });
 }
 
